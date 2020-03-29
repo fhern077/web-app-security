@@ -4,6 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "author": "Frank Hernandez",
+  "scripts": {
+    "installation": "sudo yarn",
+    "start": "nodemon $INIT_CWD/site/index.js",
+    "start:evil.com": "node $INIT_CWD/evil.com/index.js",
+    "start:secured": "nodemon $INIT_CWD/site/secured-index.js",
+    "start:both": "concurrently \"yarn start\" \"yarn start:evil.com\""
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "csurf": "^1.11.0",
@@ -14,6 +21,7 @@
     "npm-run-parallel": "^0.6.0"
   },
   "devDependencies": {
+    "concurrently": "^5.1.0",
     "nodemon": "^2.0.2"
   }
 }
