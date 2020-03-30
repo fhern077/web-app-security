@@ -37,13 +37,56 @@ curl -H 'Host: localhost.charlesproxy.com' -H 'DNT: 1' -H 'User-Agent: Mozilla/5
 
 ## Setup For Mitigating Attack
 - Set up https
-
 > We leverage the https-localhost package which is a tool for serving static content on SSL using a locally-trusted certificates.
 > Charles Proxy now can't intercept cookie and request as it's encrypted
-
+```javascript
+const localhost = require("https-localhost");
+const app = localhost(domain);
+app.use(express.urlencoded({ extended: true }));
+```
 - Redirect http to https
+
+```javascript
+/***
+ * Are application is running well on port 443 but we need to still
+ * support the app on port 80 just redirect all traffic we don't want
+ * the http version of the site to 404 but rather re-direct
+ */
+const redirApp = express();
+redirApp.use((req, res) => res.redirect(`https://${domain}${req.url}`))
+redirApp.listen(80);
+```
+
 - Set the Secure cookie flag
-- Set up HSTS
+```javascript
+/**
+ * We need to ensure cookie is only sent via https
+ * */
+  session({
+    secret: "key",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      // secure cookie prop +, cookies not sent over http
+      secure: true,
+      httpOnly: false
+    }
+  })
+```
+- Set up HSTS to auto redirect all reqs to https server.
+This will work for every time except the first time
+a user hits the site they will need to hit the server and
+re-direct. Adding your site domain https://hstspreload.org/
+will ensure even that first hit gets re-directed.
+
+```javascript
+const helmet = require('helmet')
+app.use(helmet.hsts({
+  maxAge: 60 * 60 * 24 * 365, // 1 year in seconds
+  includeSubdomains: true,
+  preload: true
+}))
+```
 
 ## Production Level Solution
 
