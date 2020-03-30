@@ -1,7 +1,11 @@
 # Man In The Middle Attacks
 
 ## Overview
-A man-in-the-middle attack (often abbreviated MITM) is when an attacker intercepts a request between a user and the site they're connecting to. If that request isn't encrypted, an attacker can read the information it contains. That is, if the session id is unencrypted, a man-in-the-middle can steal it
+A man-in-the-middle attack (often abbreviated MITM) is when an attacker intercepts a request between a user and the site they're connecting to. If that request isn't encrypted, an attacker can read the information it contains. That is, if the session id is un-encrypted, a man-in-the-middle can steal it.
+
+In the repo we have two versions of the server instance one using plain express on http `index.js`.
+One leveraging https in the `secured-index.js`.
+
 
 ## Folders
 [M👨ITM](../src/MITM)
@@ -33,6 +37,30 @@ curl -H 'Host: localhost.charlesproxy.com' -H 'DNT: 1' -H 'User-Agent: Mozilla/5
 
 ## Setup For Mitigating Attack
 - Set up https
+
+> We leverage the https-localhost package which is a tool for serving static content on SSL using a locally-trusted certificates.
+> Charles Proxy now can't intercept cookie and request as it's encrypted
+
 - Redirect http to https
 - Set the Secure cookie flag
 - Set up HSTS
+
+## Production Level Solution
+
+There are many options to have this run effectively in production.
+
+One of the most common ways might be to include something like an NGNIX
+as the web server handling things like load balancing, serving static files
+and running with https.Request to your app server are fed in through a reverse proxy
+and your node app runs purely as application server.
+
+You can also do this all within the bounds of node
+https://medium.com/@nileshsingh/everything-about-creating-an-https-server-using-node-js-2fc5c48a8d4e
+
+My personal favorite is to use some managed (PaaS, FaaS) to not worry about this
+and focus on your application code
+
+https://aws.amazon.com/elasticbeanstalk/
+https://aws.amazon.com/lambda/
+
+

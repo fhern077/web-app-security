@@ -8,7 +8,7 @@
     "installation": "sudo yarn",
     "start": "nodemon $INIT_CWD/site/index.js",
     "start:evil.com": "node $INIT_CWD/evil.com/index.js",
-    "start:secured": "nodemon $INIT_CWD/site/secured-index.js",
+    "start:secured": "sudo nodemon $INIT_CWD/site/secured-index.js",
     "start:both": "concurrently \"yarn start\" \"yarn start:evil.com\""
   },
   "dependencies": {
