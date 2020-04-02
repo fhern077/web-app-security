@@ -15,7 +15,8 @@ These will serve as my adapted notes from various resources online.
    1. Redirect http to https
    1. Set the Secure cookie flag
    1. Set up HSTS
-1. **CSRF**
+
+1. **[CSRF🖊️](./docs/CSRF.md)**
 
    1. Create an attack
    1. Set the sameSite cookie flag

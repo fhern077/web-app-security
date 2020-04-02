@@ -6,11 +6,12 @@ A man-in-the-middle attack (often abbreviated MITM) is when an attacker intercep
 In the repo we have two versions of the server instance one using plain express on http `index.js`.
 One leveraging https in the `secured-index.js`.
 
+&nbsp;
 
 ## Folders
 [M👨ITM](../src/MITM)
 
-
+&nbsp;
 ## Setup For Simulating Attack
 - Download & Install Charles Proxy
 https://www.charlesproxy.com/download/
@@ -34,6 +35,8 @@ Your curl req should include something like a data param edit that message and e
 curl -H 'Host: localhost.charlesproxy.com' -H 'DNT: 1' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36' -H 'Content-type: application/x-www-form-urlencoded' -H 'Accept: */*' -H 'Origin: http://localhost.charlesproxy.com' -H 'Referer: http://localhost.charlesproxy.com/' -H 'Accept-Language: en-US,en;q=0.9' -H 'Cookie: _ga=GA1.2.522625857.1584068130; _gid=GA1.2.1231267101.1585434712; connect.sid=s%3ApZPCS7JbHhvDPRy-5v_NdVeGqI6P8f09.MEg50jPduLj8Kcuk2wKCKakS4Wj2SVpWy9hUg6Mu2HQ' --data-binary "message=HACKED" --compressed 'http://localhost.charlesproxy.com/'
 ```
 8. As the user, refresh http://localhost.charlesproxy.com and notice there is now a message present that "you" didn't write.
+
+&nbsp;
 
 ## Setup For Mitigating Attack
 - Set up https
@@ -87,6 +90,8 @@ app.use(helmet.hsts({
   preload: true
 }))
 ```
+
+&nbsp;
 
 ## Production Level Solution
 
